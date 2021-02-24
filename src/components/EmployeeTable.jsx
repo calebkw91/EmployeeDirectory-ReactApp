@@ -1,9 +1,12 @@
 import React from "react";
+import EmployeeCol from "./EmployeeCol";
+import employees from "./friends.json";
 
 class EmployeeTable extends React.Component {
     state = {
         filter: "",
-        sort: ""
+        sort: "",
+        employees: employees
     }
 
     render() {
@@ -23,6 +26,32 @@ class EmployeeTable extends React.Component {
                             </th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            {this.state.employees.map(e => 
+                                <EmployeeCol 
+                                    key={e.id}
+                                    id={e.id}
+                                    content={e.firstName}
+                                />)}
+                        </tr>
+                        <tr>
+                            {this.state.employees.map(e => 
+                                <EmployeeCol 
+                                    key={e.id}
+                                    id={e.id}
+                                    content={e.lastName}
+                                />)}
+                        </tr>
+                        <tr>
+                            {this.state.employees.map(e => 
+                                <EmployeeCol 
+                                    key={e.id}
+                                    id={e.id}
+                                    content={e.title}
+                                />)}
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         )
