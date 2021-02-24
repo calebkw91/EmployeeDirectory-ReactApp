@@ -15,15 +15,18 @@ class EmployeeTable extends React.Component {
     handleFirstNameSort = () => {
         let newSort = this.state.sort + 1;
         let unsorted = this.state.employees;
+        let firstNameHeader = "";
 
         if(newSort > 2){
             newSort = 0;
+            firstNameHeader = "First Name";
             unsorted.sort((a, b) => {
                 return a.id - b.id;
             });
         }
 
         if(newSort === 1){
+            firstNameHeader = "First Name ^";
             unsorted.sort((a, b) => {
                 if(a.firstName.toUpperCase() < b.firstName.toUpperCase()){
                     return -1;
@@ -37,6 +40,7 @@ class EmployeeTable extends React.Component {
         }
 
         if(newSort === 2){
+            firstNameHeader = "First Name v";
             unsorted.sort((a, b) => {
                 if(a.firstName.toUpperCase() < b.firstName.toUpperCase()){
                     return 1;
@@ -51,7 +55,8 @@ class EmployeeTable extends React.Component {
 
         this.setState({
             employees: unsorted,
-            sort: newSort
+            sort: newSort,
+            firstNameHeader: firstNameHeader
         });
     }
 
