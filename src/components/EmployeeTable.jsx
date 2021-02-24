@@ -1,6 +1,6 @@
 import React from "react";
-import EmployeeCol from "./EmployeeCol";
-import employees from "./friends.json";
+import EmployeeRow from "./EmployeeRow";
+import employees from "../friends.json";
 
 class EmployeeTable extends React.Component {
     state = {
@@ -27,30 +27,14 @@ class EmployeeTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            {this.state.employees.map(e => 
-                                <EmployeeCol 
-                                    key={e.id}
-                                    id={e.id}
-                                    content={e.firstName}
-                                />)}
-                        </tr>
-                        <tr>
-                            {this.state.employees.map(e => 
-                                <EmployeeCol 
-                                    key={e.id}
-                                    id={e.id}
-                                    content={e.lastName}
-                                />)}
-                        </tr>
-                        <tr>
-                            {this.state.employees.map(e => 
-                                <EmployeeCol 
-                                    key={e.id}
-                                    id={e.id}
-                                    content={e.title}
-                                />)}
-                        </tr>
+                        {this.state.employees.map(e => 
+                            <EmployeeRow 
+                                key={e.id}
+                                id={e.id}
+                                firstName={e.firstName}
+                                lastName={e.lastName}
+                                title={e.title}
+                            />)}
                     </tbody>
                 </table>
             </div>
