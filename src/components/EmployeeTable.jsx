@@ -5,8 +5,54 @@ import employees from "../friends.json";
 class EmployeeTable extends React.Component {
     state = {
         filter: "",
-        sort: "",
-        employees: employees
+        sort: 0,
+        employees: employees,
+        firstNameHeader: "First Name",
+        lastNameHeader: "Last Name",
+        titleHeader: "Title"
+    }
+
+    handleFirstNameSort = () => {
+        let newSort = this.state.sort + 1;
+        let unsorted = this.state.employees;
+
+        if(newSort > 2){
+            newSort = 0;
+            unsorted.sort((a, b) => {
+                return a.id - b.id;
+            });
+        }
+
+        if(newSort === 1){
+            unsorted.sort((a, b) => {
+                if(a.firstName.toUpperCase() < b.firstName.toUpperCase()){
+                    return -1;
+                }
+                if(a.firstName.toUpperCase() > b.firstName.toUpperCase()){
+                    return 1;
+                }
+    
+                return 0;
+            });
+        }
+
+        if(newSort === 2){
+            unsorted.sort((a, b) => {
+                if(a.firstName.toUpperCase() < b.firstName.toUpperCase()){
+                    return 1;
+                }
+                if(a.firstName.toUpperCase() > b.firstName.toUpperCase()){
+                    return -1;
+                }
+    
+                return 0;
+            });
+        }
+
+        this.setState({
+            employees: unsorted,
+            sort: newSort
+        });
     }
 
     render() {
@@ -15,14 +61,14 @@ class EmployeeTable extends React.Component {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col">
-                                First
+                            <th scope="col" onClick={this.handleFirstNameSort}>
+                                {this.state.firstNameHeader}
                             </th>
                             <th scope="col">
-                                Last
+                                {this.state.lastNameHeader}
                             </th>
                             <th scope="col">
-                                Title
+                                {this.state.titleHeader}
                             </th>
                         </tr>
                     </thead>
