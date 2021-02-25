@@ -171,12 +171,29 @@ class EmployeeTable extends React.Component {
         });
     }
 
-    handleInputChange = () => {
+    filterEmployees = (filter) => {
+        if(filter.length < 1){
+            this.setState({ employees: employees });
+        }
+        
+        let filtered = employees.filter(e => {
+            let name = e.firstName.substring(0,filter.length);
+            return name.toLowerCase() === filter.toLowerCase()
+        });
 
+        if(filter.length < 2){
+            console.log("here");
+            this.setState({ employees: employees });
+        }
+        else{
+            this.setState({ employees: filtered });
+        }
     }
 
-    handleFormSubmit = () => {
-        
+    handleInputChange = (event) => {
+        const filter = event.target.value;
+        this.setState({filter: filter});
+        this.filterEmployees(this.state.filter);
     }
 
     render() {
@@ -214,7 +231,6 @@ class EmployeeTable extends React.Component {
                         <FilterForm
                             value={this.state.filter}
                             handleFilterChange={this.handleInputChange}
-                            handleFormSubmit={this.handleFormSubmit}
                         />
                     </div>
                 </div>

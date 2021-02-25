@@ -15,9 +15,6 @@ function FilterForm(props) {
                     id="Filter"
                 />
                 <br />
-                <button onClick={props.handleFormSubmit} className="btn btn-primary">
-                    Filter
-                </button>
             </div>
         </form>
     );
