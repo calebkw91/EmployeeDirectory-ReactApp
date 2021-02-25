@@ -5,7 +5,9 @@ import employees from "../friends.json";
 class EmployeeTable extends React.Component {
     state = {
         filter: "",
-        sort: 0,
+        firstSort: 0,
+        lastSort: 0,
+        titleSort: 0,
         employees: employees,
         firstNameHeader: "First Name",
         lastNameHeader: "Last Name",
@@ -13,7 +15,7 @@ class EmployeeTable extends React.Component {
     }
 
     handleFirstNameSort = () => {
-        let newSort = this.state.sort + 1;
+        let newSort = this.state.firstSort + 1;
         let unsorted = this.state.employees;
         let firstNameHeader = "";
 
@@ -26,7 +28,7 @@ class EmployeeTable extends React.Component {
         }
 
         if(newSort === 1){
-            firstNameHeader = "First Name ^";
+            firstNameHeader = "First Name \u25B2";
             unsorted.sort((a, b) => {
                 if(a.firstName.toUpperCase() < b.firstName.toUpperCase()){
                     return -1;
@@ -40,7 +42,7 @@ class EmployeeTable extends React.Component {
         }
 
         if(newSort === 2){
-            firstNameHeader = "First Name v";
+            firstNameHeader = "First Name \u25BC";
             unsorted.sort((a, b) => {
                 if(a.firstName.toUpperCase() < b.firstName.toUpperCase()){
                     return 1;
@@ -55,8 +57,64 @@ class EmployeeTable extends React.Component {
 
         this.setState({
             employees: unsorted,
-            sort: newSort,
-            firstNameHeader: firstNameHeader
+            firstSort: newSort,
+            lastSort: 0,
+            titleSort: 0,
+            firstNameHeader: firstNameHeader,
+            lastNameHeader: "Last Name",
+            titleHeader: "Title"
+        });
+    }
+
+    handleLastNameSort = () => {
+        let newSort = this.state.lastSort + 1;
+        let unsorted = this.state.employees;
+        let lastNameHeader = "";
+
+        if(newSort > 2){
+            newSort = 0;
+            lastNameHeader = "Last Name";
+            unsorted.sort((a, b) => {
+                return a.id - b.id;
+            });
+        }
+
+        if(newSort === 1){
+            lastNameHeader = "Last Name \u25B2";
+            unsorted.sort((a, b) => {
+                if(a.lastName.toUpperCase() < b.lastName.toUpperCase()){
+                    return -1;
+                }
+                if(a.lastName.toUpperCase() > b.lastName.toUpperCase()){
+                    return 1;
+                }
+    
+                return 0;
+            });
+        }
+
+        if(newSort === 2){
+            lastNameHeader = "Last Name \u25BC";
+            unsorted.sort((a, b) => {
+                if(a.lastName.toUpperCase() < b.lastName.toUpperCase()){
+                    return 1;
+                }
+                if(a.lastName.toUpperCase() > b.lastName.toUpperCase()){
+                    return -1;
+                }
+    
+                return 0;
+            });
+        }
+
+        this.setState({
+            employees: unsorted,
+            firstSort: 0,
+            lastSort: newSort,
+            titleSort: 0,
+            firstNameHeader: "First Name",
+            lastNameHeader: lastNameHeader,
+            titleHeader: "Title"
         });
     }
 
@@ -69,7 +127,7 @@ class EmployeeTable extends React.Component {
                             <th scope="col" onClick={this.handleFirstNameSort}>
                                 {this.state.firstNameHeader}
                             </th>
-                            <th scope="col">
+                            <th scope="col" onClick={this.handleLastNameSort}>
                                 {this.state.lastNameHeader}
                             </th>
                             <th scope="col">
