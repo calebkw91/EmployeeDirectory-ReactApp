@@ -118,6 +118,58 @@ class EmployeeTable extends React.Component {
         });
     }
 
+    handleTitleSort = () => {
+        let newSort = this.state.titleSort + 1;
+        let unsorted = this.state.employees;
+        let titleHeader = "";
+
+        if(newSort > 2){
+            newSort = 0;
+            titleHeader = "Title";
+            unsorted.sort((a, b) => {
+                return a.id - b.id;
+            });
+        }
+
+        if(newSort === 1){
+            titleHeader = "Title \u25B2";
+            unsorted.sort((a, b) => {
+                if(a.title.toUpperCase() < b.title.toUpperCase()){
+                    return -1;
+                }
+                if(a.title.toUpperCase() > b.title.toUpperCase()){
+                    return 1;
+                }
+    
+                return 0;
+            });
+        }
+
+        if(newSort === 2){
+            titleHeader = "Title \u25BC";
+            unsorted.sort((a, b) => {
+                if(a.title.toUpperCase() < b.title.toUpperCase()){
+                    return 1;
+                }
+                if(a.title.toUpperCase() > b.title.toUpperCase()){
+                    return -1;
+                }
+    
+                return 0;
+            });
+        }
+
+        this.setState({
+            employees: unsorted,
+            firstSort: 0,
+            lastSort: 0,
+            titleSort: newSort,
+            firstNameHeader: "First Name",
+            lastNameHeader: "Last Name",
+            titleHeader: titleHeader
+        });
+    }
+
     render() {
         return (
             <div className="container">
@@ -130,7 +182,7 @@ class EmployeeTable extends React.Component {
                             <th scope="col" onClick={this.handleLastNameSort}>
                                 {this.state.lastNameHeader}
                             </th>
-                            <th scope="col">
+                            <th scope="col" onClick={this.handleTitleSort}>
                                 {this.state.titleHeader}
                             </th>
                         </tr>
