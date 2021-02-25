@@ -1,6 +1,7 @@
 import React from "react";
 import EmployeeRow from "./EmployeeRow";
 import employees from "../friends.json";
+import FilterForm from "./FilterForm";
 
 class EmployeeTable extends React.Component {
     state = {
@@ -170,34 +171,53 @@ class EmployeeTable extends React.Component {
         });
     }
 
+    handleInputChange = () => {
+
+    }
+
+    handleFormSubmit = () => {
+        
+    }
+
     render() {
         return (
             <div className="container">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" onClick={this.handleFirstNameSort}>
-                                {this.state.firstNameHeader}
-                            </th>
-                            <th scope="col" onClick={this.handleLastNameSort}>
-                                {this.state.lastNameHeader}
-                            </th>
-                            <th scope="col" onClick={this.handleTitleSort}>
-                                {this.state.titleHeader}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.employees.map(e => 
-                            <EmployeeRow 
-                                key={e.id}
-                                id={e.id}
-                                firstName={e.firstName}
-                                lastName={e.lastName}
-                                title={e.title}
-                            />)}
-                    </tbody>
-                </table>
+                <div className="row">
+                    <div className="col-md-8">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" onClick={this.handleFirstNameSort}>
+                                        {this.state.firstNameHeader}
+                                    </th>
+                                    <th scope="col" onClick={this.handleLastNameSort}>
+                                        {this.state.lastNameHeader}
+                                    </th>
+                                    <th scope="col" onClick={this.handleTitleSort}>
+                                        {this.state.titleHeader}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.employees.map(e => 
+                                    <EmployeeRow 
+                                        key={e.id}
+                                        id={e.id}
+                                        firstName={e.firstName}
+                                        lastName={e.lastName}
+                                        title={e.title}
+                                    />)}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="col-md-4">
+                        <FilterForm
+                            value={this.state.filter}
+                            handleFilterChange={this.handleInputChange}
+                            handleFormSubmit={this.handleFormSubmit}
+                        />
+                    </div>
+                </div>
             </div>
         )
     }
