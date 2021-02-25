@@ -6,6 +6,7 @@ import FilterForm from "./FilterForm";
 class EmployeeTable extends React.Component {
     state = {
         filter: "",
+        selectValue: "Select a Value",
         firstSort: 0,
         lastSort: 0,
         titleSort: 0,
@@ -171,18 +172,38 @@ class EmployeeTable extends React.Component {
         });
     }
 
-    filterEmployees = (filter) => {
+    filterEmployees = (filter, filterCategory) => {
+        let filterCat = filterCategory;
+        let filtered;
+
         if(filter.length < 1){
             this.setState({ employees: employees });
         }
-        
-        let filtered = employees.filter(e => {
-            let name = e.firstName.substring(0,filter.length);
-            return name.toLowerCase() === filter.toLowerCase()
-        });
+
+        if(filterCat === null){
+            filterCat = "firstName";
+        }
+
+        if(filterCat === "firstName"){
+            filtered = employees.filter(e => {
+                let name = e.firstName.substring(0,filter.length);
+                return name.toLowerCase() === filter.toLowerCase()
+            });
+        }
+        else if(filterCat === "lastName"){
+            filtered = employees.filter(e => {
+                let name = e.lastName.substring(0,filter.length);
+                return name.toLowerCase() === filter.toLowerCase()
+            });
+        }
+        else if(filterCat === "title"){
+            filtered = employees.filter(e => {
+                let name = e.title.substring(0,filter.length);
+                return name.toLowerCase() === filter.toLowerCase()
+            });
+        }
 
         if(filter.length < 2){
-            console.log("here");
             this.setState({ employees: employees });
         }
         else{
@@ -193,7 +214,11 @@ class EmployeeTable extends React.Component {
     handleInputChange = (event) => {
         const filter = event.target.value;
         this.setState({filter: filter});
-        this.filterEmployees(this.state.filter);
+        this.filterEmployees(this.state.filter, this.state.selectValue);
+    }
+
+    handleSelect = (event) => {
+        this.setState({ selectValue: event.target.value });
     }
 
     render() {
@@ -231,6 +256,8 @@ class EmployeeTable extends React.Component {
                         <FilterForm
                             value={this.state.filter}
                             handleFilterChange={this.handleInputChange}
+                            selectValue={this.state.selectValue}
+                            handleSelect={this.handleSelect}
                         />
                     </div>
                 </div>
