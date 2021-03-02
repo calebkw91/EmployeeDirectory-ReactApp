@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "firstName": "Caleb",
+    "lastName": "Walker",
+    "title": "Engineer"
+  },
+  {
+    "id": 2,
+    "firstName": "Molly",
+    "lastName": "Adolph",
+    "title": "Manager"
+  },
+  {
+    "id": 3,
+    "firstName": "John",
+    "lastName": "Davies",
+    "title": "Human Resources"
+  },
+  {
+    "id": 4,
+    "firstName": "Alec",
+    "lastName": "Roberts",
+    "title": "Engineer"
+  },
+  {
+    "id": 5,
+    "firstName": "Sarah",
+    "lastName": "Williams",
+    "title": "IT"
+  },
+  {
+    "id": 6,
+    "firstName": "Matthew",
+    "lastName": "Wessen",
+    "title": "Sales"
+  }
+]

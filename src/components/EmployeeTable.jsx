@@ -1,6 +1,6 @@
 import React from "react";
 import EmployeeRow from "./EmployeeRow";
-import employees from "../friends.json";
+import employees from "../employees.json";
 import FilterForm from "./FilterForm";
 
 class EmployeeTable extends React.Component {
